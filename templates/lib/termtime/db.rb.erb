@@ -1,0 +1,63 @@
+# frozen_string_literal: true
+
+# GENERATED FILE, DO NOT EDIT
+# :stopdoc:
+module TermTime
+  module DB
+    class Capability
+      attr_reader :name, :tiname, :titype, :tcname, :key_name, :value, :flags, :desc, :i
+
+      def initialize(name, tiname, titype, tcname, key_name, value, flags, desc, i)
+        @name = name
+        @tiname = tiname
+        @titype = titype
+        @tcname = tcname
+        @key_name = key_name
+        @value = value
+        @flags = flags
+        @desc = desc
+        @i = i
+      end
+    end
+    class Boolean < Capability; end
+    class Number < Capability; end
+    class String < Capability; end
+
+    BOOLEANS = {
+<% info["bool"].each_with_index do |bool, i| %>
+      <%= bool[1].dump %> => Boolean.new(
+<% bool.map(&:dump).each do |f| %>
+        <%= f %>,
+<% end %>
+        <%= i %>,
+      ).freeze,
+<% end %>
+    }.freeze
+    BOOLEAN_LIST = BOOLEANS.values
+
+    NUMBERS = {
+<% info["num"].each_with_index do |bool, i| %>
+      <%= bool[1].dump %> => Number.new(
+<% bool.map(&:dump).each do |f| %>
+        <%= f %>,
+<% end %>
+        <%= i %>,
+      ).freeze,
+<% end %>
+    }.freeze
+    NUMBER_LIST = NUMBERS.values
+
+    STRINGS = {
+<% info["str"].each_with_index do |bool, i| %>
+      <%= bool[1].dump %> => String.new(
+<% bool.map(&:dump).each do |f| %>
+        <%= f %>,
+<% end %>
+        <%= i %>,
+      ).freeze,
+<% end %>
+    }.freeze
+    STRING_LIST = STRINGS.values
+  end
+end
+# :startdoc:
