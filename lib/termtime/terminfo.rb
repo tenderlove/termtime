@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "termtime/db"
 
 module TermTime
@@ -27,6 +29,10 @@ module TermTime
     end
 
     def initialize fname
+      unless File.file? fname
+        fname = "/usr/share/terminfo/#{fname.getbyte(0).to_s(16)}/#{fname}"
+      end
+
       File.open fname, "rb" do |f|
         magic,
           names_size,
