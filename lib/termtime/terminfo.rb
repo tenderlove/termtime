@@ -100,6 +100,10 @@ module TermTime
       @strings.fetch(name)
     end
 
+    def str? name
+      @strings.key?(name)
+    end
+
     def names
       @names.split("|")
     end
