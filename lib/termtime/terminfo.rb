@@ -26,9 +26,13 @@ module TermTime
       end
 
       def tiname; @db.tiname; end
+
+      def tparm(...)
+        TermTime.tparm(value, ...)
+      end
     end
 
-    def initialize fname
+    def initialize fname = ENV["TERM"]
       unless File.file? fname
         fname = "/usr/share/terminfo/#{fname.getbyte(0).to_s(16)}/#{fname}"
       end
@@ -89,7 +93,11 @@ module TermTime
     end
 
     def getstr name
-      @strings.fetch(name).value
+      str(name).value
+    end
+
+    def str name
+      @strings.fetch(name)
     end
 
     def names

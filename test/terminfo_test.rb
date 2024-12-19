@@ -33,6 +33,11 @@ module TermTime
       assert_equal ["\a", "\x1A$<1/>", "\r", "\b", "\n", "\f", "\e=%p1%' '%+%c%p2%' '%+%c", "\v", "\x1E", "\n", "\b", "\n", "\f", "\v", "\x0E"], ti.strings.sort_by(&:tiname).map(&:value)
     end
 
+    def test_getstr_tparm
+      ti = TermInfo.new File.join(FIXTURES, "xterm-256color")
+      assert_equal "\e[2D", ti.str("cub").tparm(2)
+    end
+
     def test_tparm
       assert_equal "1;1", TermTime.tparm("%i%p1%d;%p2%d")
       assert_equal "0;0", TermTime.tparm("%p1%d;%p2%d")
@@ -42,7 +47,6 @@ module TermTime
       assert_equal "8", TermTime.tparm("%{8}%d")
       assert_equal "%", TermTime.tparm("%%")
       assert_equal [40].pack("C"), TermTime.tparm("%{40}%c")
-      #assert_equal "false", TermTime.tparm("%p1%ttrue%efalse%;", 2)
     end
 
     def test_tparm_lt
