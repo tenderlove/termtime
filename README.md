@@ -28,3 +28,7 @@ ensure
   puts
 end
 ```
+
+Running the above program will make your terminal look something like this:
+
+![Program Output, terminal with random colored characters](assets/termtime.png)
